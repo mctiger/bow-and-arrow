@@ -199,7 +199,7 @@
 
 (defvar *copyright-paper* 
   '("Common Lisp - Bow and Arrow" 
-    "version 1.0" 
+    "version 1.2" 
     "" 
     "In search of" 
     "The GREATEST Archer"
