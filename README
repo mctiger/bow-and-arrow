@@ -3,9 +3,13 @@ This remake is entireley written in Common Lisp.
 This package has just 2 dependencies : lispbuilder-sdl, cl-fad
 You can get lispbuilder-sdl with Quicklisp.
 So, if you want to play :
-(ql:quickload "lispbuilder-sdl")
-(asdf:oos 'asdf:load-op :bow-and-arrow) 
-(bow-and-arrow:play)
+
+$ git clone https://github.com/ckairaba/bow-and-arrow.git
+$ cd bow-and-arrow
+$ lisp
+* (ql:quickload '("cl-fad" "lispbuilder-sdl"))
+* (asdf:oos 'asdf:load-op :bow-and-arrow) 
+* (bow-and-arrow:play)
 
 PLAY :
 ------
