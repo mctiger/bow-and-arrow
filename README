@@ -19,5 +19,5 @@ PLAY :
 
 Note : This package is theoretically portable. We just tested the package on
 sbcl/linux, ccl/linux, clisp/linux and cmucl/linux.
-We have implemented just the first level. So, the following levels will come
+We have implemented 3 levels. So, the next levels will come
 soon.
