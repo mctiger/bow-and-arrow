@@ -7,8 +7,8 @@ So, if you want to play :
 $ git clone https://github.com/ckairaba/bow-and-arrow.git
 $ cd bow-and-arrow
 $ lisp
-* (ql:quickload '("cl-fad" "lispbuilder-sdl"))
-* (asdf:oos 'asdf:load-op :bow-and-arrow) 
+* (pushnew "./" asdf:*central-registry*)
+* (ql:quickload "bow-and-arrow")
 * (bow-and-arrow:play)
 
 PLAY :
