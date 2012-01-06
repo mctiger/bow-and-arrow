@@ -16,13 +16,8 @@ So, if you want to play :
 - right click to armed
 - left click to stand (maintain)
 
-<table align="center" width="100%">
-  <tr>
-    <td align="center">
-      <img src="screenshot.png">
-    </td>
-  </tr>
-</table>
+![Alt text](screenshot.png)
+
 
 This package is theoretically portable. We just tested the package on
 sbcl/linux, ccl/linux, clisp/linux and cmucl/linux.
