@@ -89,9 +89,12 @@
 ;; TODO :
 ;; add different size to adapt the screen size
 ;; add state :paused (is it necessary and interresting ?)
-(defun play nil
+(defun play (&optional width height)
   (sdl:with-init (sdl:sdl-init-video)
-    (initialize-dimensions)
+    (if (and width height)
+	(setf *video-width* width
+	      *video-height* height)
+	(initialize-dimensions))
     (let* (my-hero
 	   balloons
 	   butterflies
