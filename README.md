@@ -9,7 +9,7 @@ So, if you want to play :
 * lisp
 * (pushnew "./" asdf:*central-registry*)
 * (ql:quickload "bow-and-arrow")
-* (bow-and-arrow:play)
+* (bow-and-arrow:play  900 500)
 
 ## PLAY :
 
