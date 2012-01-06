@@ -16,7 +16,7 @@ So, if you want to play :
 - right click to armed
 - left click to stand (maintain)
 
-<table align="center" width="50%">
+<table align="center" width="100%">
     <td align="center">
       <img src="images/screenshot.png">
     </td>
