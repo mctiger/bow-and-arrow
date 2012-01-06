@@ -16,7 +16,7 @@ So, if you want to play :
 - right click to armed
 - left click to stand (maintain)
 
-<img src="https://github.com/downloads/ckairaba/screenshot.png" alt="The scrrenshit" align="center" />
+<img src="https://github.com/downloads/ckairaba/bow-and-arrow/screenshot.png" align="center" />
 
 
 This package is theoretically portable. We just tested the package on
