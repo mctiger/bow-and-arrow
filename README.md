@@ -4,20 +4,25 @@ This package has just 2 dependencies : lispbuilder-sdl, cl-fad
 You can get lispbuilder-sdl with Quicklisp.
 So, if you want to play :
 
-$ git clone https://github.com/ckairaba/bow-and-arrow.git
-$ cd bow-and-arrow
-$ lisp
+* git clone https://github.com/ckairaba/bow-and-arrow.git
+* cd bow-and-arrow
+* lisp
 * (pushnew "./" asdf:*central-registry*)
 * (ql:quickload "bow-and-arrow")
 * (bow-and-arrow:play)
 
-PLAY :
-------
+## PLAY :
+
 - right click to armed
 - left click to stand (maintain)
 
+<table align="center" width="50%">
+    <td align="center">
+      <img src="images/screenshot.png">
+    </td>
+</table>
 
-Note : This package is theoretically portable. We just tested the package on
+This package is theoretically portable. We just tested the package on
 sbcl/linux, ccl/linux, clisp/linux and cmucl/linux.
 We have implemented 3 levels. So, the next levels will come
 soon.
