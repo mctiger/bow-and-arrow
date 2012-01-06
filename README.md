@@ -17,9 +17,11 @@ So, if you want to play :
 - left click to stand (maintain)
 
 <table align="center" width="100%">
+  <tr>
     <td align="center">
       <img src="screenshot.png">
     </td>
+  </tr>
 </table>
 
 This package is theoretically portable. We just tested the package on
