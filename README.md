@@ -18,7 +18,7 @@ So, if you want to play :
 
 <table align="center" width="100%">
     <td align="center">
-      <img src="images/screenshot.png">
+      <img src="screenshot.png">
     </td>
 </table>
 
