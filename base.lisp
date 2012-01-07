@@ -1,4 +1,4 @@
-;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER-*-
+;;; -*- Mode: LISP -*-
 ;;; Copyright (c) 2011 Kaïraba Cissé, All Rights Reserved
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
