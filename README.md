@@ -13,7 +13,7 @@ lisp
 (bow-and-arrow:play)
 ```
 
-## PLAY :
+## Play :
 ```
 right click to armed
 left click to stand (maintain)
