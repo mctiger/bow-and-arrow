@@ -1,7 +1,7 @@
 This game is a remake of the old Win95 game named Bow & Arrow.
 This remake is entireley written in Common Lisp. 
 This package has just 2 dependencies : lispbuilder-sdl, cl-fad.
-You can get lispbuilder-sdl and cl-fad with Quicklisp.
+You can get lispbuilder-sdl and cl-fad with [Quicklisp](http://http://www.quicklisp.org).
 
 ## Usage :
 ```
