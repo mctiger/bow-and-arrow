@@ -5,12 +5,12 @@ You can get lispbuilder-sdl and cl-fad with [Quicklisp](http://www.quicklisp.org
 
 ## Usage :
 ```
-git clone https://github.com/ckairaba/bow-and-arrow.git
-cd bow-and-arrow
-sbcl
-(pushnew "./" asdf:*central-registry*)
-(ql:quickload "bow-and-arrow")
-(bow-and-arrow:play)
+$ git clone https://github.com/ckairaba/bow-and-arrow.git
+$ cd bow-and-arrow
+$ sbcl
+* (pushnew "./" asdf:*central-registry*)
+* (ql:quickload "bow-and-arrow")
+* (bow-and-arrow:play)
 ```
 
 ## Play :
