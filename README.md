@@ -7,7 +7,7 @@ You can get lispbuilder-sdl and cl-fad with [Quicklisp](http://www.quicklisp.org
 ```
 git clone https://github.com/ckairaba/bow-and-arrow.git
 cd bow-and-arrow
-lisp
+sbcl
 (pushnew "./" asdf:*central-registry*)
 (ql:quickload "bow-and-arrow")
 (bow-and-arrow:play)
