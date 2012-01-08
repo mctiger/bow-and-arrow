@@ -8,15 +8,16 @@ You can get lispbuilder-sdl and cl-fad with Quicklisp.
 git clone https://github.com/ckairaba/bow-and-arrow.git
 cd bow-and-arrow
 lisp
-(pushnew "./" asdf:\*central-registry\*)
+(pushnew "./" asdf:*central-registry*)
 (ql:quickload "bow-and-arrow")
-(bow-and-arrow:play  900 500)
+(bow-and-arrow:play)
 ```
 
 ## PLAY :
-
-- right click to armed
-- left click to stand (maintain)
+```
+right click to armed
+left click to stand (maintain)
+```
 
 <img src="https://github.com/downloads/ckairaba/bow-and-arrow/screenshot.png" height="250" width="450" align="center" />
 
