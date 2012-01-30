@@ -30,7 +30,7 @@
   :version "1.0"
   :author "Kaïraba Cissé <ckairaba@gmail.com>"
   :licence "MIT"
-  :depends-on (#:lispbuilder-sdl #:cl-fad)
+  :depends-on (#:lispbuilder-sdl)
   :components ((:file "packages")
 	       (:file "specials"
 		      :depends-on ("packages"))
