@@ -60,7 +60,7 @@
 	     (> top1 bottom2)))))
 
 (defmethod draw-image (base path)
-  (sdl:draw-surface-at-* (sdl:load-image path :alpha 0) ; (alpha == 0) =>  transparency
+  (sdl:draw-surface-at-* (sdl:load-image path :alpha 0 :image-type :PNG :force t) ; (alpha == 0) =>  transparency
 			 (%x base) 
 			 (%y base)))
 
