@@ -25,18 +25,7 @@
 ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-;; mkdir -p ~/.bow-and-arrow/images/
-;; cp -rf images/* ~/.bow-and-arrow/images/
-(let ((dir (ensure-directories-exist (merge-pathnames ".bow-and-arrow/images/" 
-						      (user-homedir-pathname)))))
-  (cl-fad::walk-directory "images/"
-			  #'(lambda (file) 
-			      (cl-fad::copy-file file
-						 (merge-pathnames (file-namestring file)
-								  dir)
-						 :overwrite t))
-			  :if-does-not-exist :ignore))
 (defpackage :bow-and-arrow 
   (:nicknames :bow)
   (:use :common-lisp)
-  (:export :play))
+  (:export :play :+images-directory+))
