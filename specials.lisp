@@ -43,7 +43,7 @@
 (defvar *video-width*)
 
 (defparameter +images-directory+
-  (merge-pathnames #P".bow-and-arrow/images/" (user-homedir-pathname)))
+  (merge-pathnames #P"images/"  (asdf:system-source-directory 'bow-and-arrow)))
 
 (defmacro def-image-path (variable name)
   `(defparameter ,variable 
