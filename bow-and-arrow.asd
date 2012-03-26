@@ -27,36 +27,21 @@
 
 (asdf:defsystem :bow-and-arrow
   :description "a remake of W* 1995 game Bow & Arrow"
-  :version "1.0"
+  :version "1.3"
   :author "Kaïraba Cissé <ckairaba@gmail.com>"
   :licence "MIT"
-  :depends-on (#:lispbuilder-sdl)
+  :depends-on (#:lispbuilder-sdl #:lispbuilder-sdl-image)
+  :serial t
   :components ((:file "packages")
-	       (:file "specials"
-		      :depends-on ("packages"))
-	       (:file "tools"
-		      :depends-on ("packages"))
-
-	       (:file "base"
-		      :depends-on ("specials"))
-	       (:file "paper"
-		      :depends-on ("base"))
-	       (:file "balloon"
-		      :depends-on ("base" "tools"))
-	       (:file "arrow"
-		      :depends-on ("base"))
-	       (:file "hero"
-		      :depends-on ("base"))
-	       (:file "butterfly"
-		      :depends-on ("base"))
-	       (:file "main"
-		      :depends-on ("packages"
-				   "specials"
-				   "base"
-				   "paper"
-				   "balloon"
-				   "arrow"
-				   "hero"))))
+	       (:file "specials")
+	       (:file "tools")
+	       (:file "base")
+	       (:file "paper")
+	       (:file "balloon")
+	       (:file "arrow")
+	       (:file "hero")
+	       (:file "butterfly")
+	       (:file "main")))
 
 
 
