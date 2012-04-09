@@ -12,11 +12,24 @@ $ sbcl
 * (ql:quickload "bow-and-arrow")
 * (bow-and-arrow:play)
 ```
-
+## Play function :
+Play with default screen size :
+```
+(bow-and-arrow:play)
+```
+Play in fullscreen :
+```
+(bow-and-arrow:play :fullscreen t)
+```
+Play with chosen dimensions :
+```
+(bow-and-arrow:play :width 1000 :height 800)
+```
 ## Play :
 ```
-right click to armed
-left click to stand (maintain)
+right button to armed
+maintain left button to stand
+release left button to launch the arrow
 ```
 
 <img src="https://github.com/downloads/ckairaba/bow-and-arrow/screenshot.png" height="250" width="450" align="center" />
