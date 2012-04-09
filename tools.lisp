@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP -*-
-;;; Copyright (c) 2011 Kaïraba Cissé, All Rights Reserved
+;;; Copyright (c) 2011-2012 Kaïraba Cissé, All Rights Reserved
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -35,6 +35,12 @@
 	     (when (and (/= r 0) (not (member r lst)))
 	       (push r lst))))
     lst))
-	 
+
 (defun random* (i j)
   (+ i (random (1+ (- j i)))))
+
+
+;; from sbcl manual http://www.sbcl.org/manual/Defining-Constants.html
+(defmacro define-constant (name value &optional doc)
+  `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
+     ,@(when doc (list doc))))
