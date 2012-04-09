@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP -*-
-;;; Copyright (c) 2011 Kaïraba Cissé, All Rights Reserved
+;;; Copyright (c) 2011-2012 Kaïraba Cissé, All Rights Reserved
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -30,11 +30,11 @@
   :version "1.3"
   :author "Kaïraba Cissé <ckairaba@gmail.com>"
   :licence "MIT"
-  :depends-on (#:lispbuilder-sdl #:lispbuilder-sdl-image)
+  :depends-on (#:asdf #:lispbuilder-sdl #:lispbuilder-sdl-image)
   :serial t
   :components ((:file "packages")
-	       (:file "specials")
 	       (:file "tools")
+	       (:file "specials")
 	       (:file "base")
 	       (:file "paper")
 	       (:file "balloon")
