@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP -*-
-;;; Copyright (c) 2011 Kaïraba Cissé, All Rights Reserved
+;;; Copyright (c) 2011-2012 Kaïraba Cissé, All Rights Reserved
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -27,7 +27,7 @@
 
 (in-package :bow-and-arrow)
 
-(defun initialize-dimensions nil
+(defun initialize-fullscreen-dimensions nil
   (let ((dimensions (sdl:video-dimensions)))
     (setf *video-width* (aref dimensions 0)
 	  *video-height* (aref dimensions 1))))
@@ -89,18 +89,24 @@
 ;; TODO :
 ;; add different size to adapt the screen size
 ;; add state :paused (is it necessary and interresting ?)
-(defun play (&optional width height)
+(defun play (&key (fullscreen nil) width height)
+  (format t +license+)
   (sdl:with-init (sdl:sdl-init-video)
-    (if (and width height)
-	(setf *video-width* width
-	      *video-height* height)
-	(initialize-dimensions))
+    (cond (fullscreen 
+	   (initialize-fullscreen-dimensions))
+	  ((and width height)
+	   (setf *video-width* width
+		 *video-height* height))
+	  (t 
+	   (setf *video-width* 1000
+		 *video-height* 720)))
     (let* (my-hero
 	   balloons
 	   butterflies
 	   (state :copyright)
 	   (level 1))
       (sdl:window   *video-width* *video-height*  :title-caption +title+ :icon-caption +title+)
+      (sdl:show-cursor nil)
       (sdl:with-events ()
 	(:quit-event () t)
 	;; TODO : use key-down-event to save the current game state (serialization)
