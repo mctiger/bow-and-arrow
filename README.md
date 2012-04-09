@@ -17,10 +17,12 @@ Play with default screen size :
 ```
 (bow-and-arrow:play)
 ```
+
 Play in fullscreen :
 ```
 (bow-and-arrow:play :fullscreen t)
 ```
+
 Play with chosen dimensions :
 ```
 (bow-and-arrow:play :width 1000 :height 800)
