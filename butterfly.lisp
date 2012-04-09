@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP -*-
-;;; Copyright (c) 2011 Kaïraba Cissé, All Rights Reserved
+;;; Copyright (c) 2011-2012 Kaïraba Cissé, All Rights Reserved
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
