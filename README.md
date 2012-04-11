@@ -27,12 +27,13 @@ Play with chosen dimensions :
 ```
 (bow-and-arrow:play :width 1000 :height 800)
 ```
-## Play :
-```
-right button to armed
-maintain left button to stand
-release left button to launch the arrow
-```
+
+## Commands :
+* right button to armed
+* maintain left button to stand
+* release left button to launch the arrow
+* 'space' key to pause the game
+* 'q' key to quit the game
 
 <img src="https://github.com/downloads/ckairaba/bow-and-arrow/screenshot.png" height="250" width="450" align="center" />
 
