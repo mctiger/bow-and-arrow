@@ -12,7 +12,7 @@ $ sbcl
 * (ql:quickload "bow-and-arrow")
 * (bow-and-arrow:play)
 ```
-## Play function :
+## Play :
 Play with default screen size :
 ```
 (bow-and-arrow:play)
