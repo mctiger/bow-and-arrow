@@ -86,9 +86,7 @@
    (every #'(lambda (butterfly) (not (%bubled-p butterfly)))
 	  butterflies)))
 
-;; TODO :
-;; add different size to adapt the screen size
-;; add state :paused (is it necessary and interresting ?)
+
 (defun play (&key (fullscreen nil) width height)
   (format t +license+)
   (sdl:with-init (sdl:sdl-init-video)
@@ -112,7 +110,10 @@
 	;; TODO : use key-down-event to save the current game state (serialization)
 	(:key-down-event (:key key)
 			 (when (equal key :sdl-key-q)
-			   (sdl:push-quit-event)))
+			   (sdl:push-quit-event))
+			 (when (equal key :sdl-key-space)
+			   (cond ((eq state :paused) (setf state :play))
+				 ((eq state :play) (setf state :paused)))))
 	(:mouse-button-down-event (:button button)
 				  (case state 
 				    (:copyright (setf state :level))
@@ -127,41 +128,44 @@
 			     (when (eq state :play)
 			       (move my-hero 0 y)))
 	(:idle ()
-	       ;; initialize a green background
-	       (sdl:clear-display sdl:*green*)
-	       (case state
-		 (:copyright (draw-copyright-paper))
-		 (:end (draw-end-paper))
-		 (:no-arrows(draw-no-more-arrows-paper))
-		 (:level 
-		  (draw-level-paper level)
-		  ;; on each level, we create a new hero
-		  (setf my-hero (make-hero level))
-		  (case level
-		    ;; there are 15 balloons at level 1
-		    (1 (setq balloons (make-balloons-list 15)))
-		    ;; there are 15 balloons at level 2 (12 red and 3 yellow)
-		    (2 (setq balloons (make-balloons-random-list 15)))
-		    ;; there are 15 bubled butterflies at level 3
-		    (3 (setq butterflies (make-butterflies-random-list 15)))))
-		    (:play
-		     (case level
-		       ((1 2 3)
-			(multiple-value-bind (any-arrow any-item-alive)
-			    (case level
-			      ((1 2) (level-1-or-2 my-hero balloons))
-			      (3 (level-3 my-hero butterflies)))
-			  (cond ((and any-arrow (not any-item-alive))
-				 (setq state :no-arrows
-				       level 1))
-				((or
-				  (and any-arrow any-item-alive) 
-				  ;; hero has some arrows and each balloon is dead
-				  (and (not any-arrow) any-item-alive))
-				 (setq state :level)
-				 (incf level)))))
-		       (otherwise (setf state :end
-					level 1)))))
-		  (sdl:update-display))))))
+	       
+	       (unless (eq state :paused)
+		 ;; initialize a green background
+		 (sdl:clear-display sdl:*green*)
+		 (case state
+		   (:copyright  (draw-copyright-paper))
+		   (:end  (draw-end-paper))
+		   (:no-arrows  (draw-no-more-arrows-paper))
+		   (:level 
+		    (draw-level-paper level)
+		    ;; on each level, we create a new hero
+		    (setf my-hero (make-hero level))
+		    (case level
+		      ;; there are 15 balloons at level 1
+		      (1 (setq balloons (make-balloons-list 15)))
+		      ;; there are 15 balloons at level 2 (12 red and 3 yellow)
+		      (2 (setq balloons (make-balloons-random-list 15)))
+		      ;; there are 15 bubled butterflies at level 3
+		      (3 (setq butterflies (make-butterflies-random-list 15)))))
+		   (:play
+		    (sdl:clear-display sdl:*green*)
+		    (case level
+		      ((1 2 3)
+		       (multiple-value-bind (any-arrow any-item-alive)
+			   (case level
+			     ((1 2) (level-1-or-2 my-hero balloons))
+			     (3 (level-3 my-hero butterflies)))
+			 (cond ((and any-arrow (not any-item-alive))
+				(setq state :no-arrows
+				      level 1))
+			       ((or
+				 (and any-arrow any-item-alive) 
+				 ;; hero has some arrows and each balloon is dead
+				 (and (not any-arrow) any-item-alive))
+				(setq state :level)
+				(incf level)))))
+		      (otherwise (setf state :end
+				       level 1))))))
+	       (sdl:update-display))))))
 
 
