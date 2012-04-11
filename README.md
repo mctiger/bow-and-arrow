@@ -29,9 +29,9 @@ Play with chosen dimensions :
 ```
 
 ## Commands :
-* right button to armed
-* maintain left button to stand
-* release left button to launch the arrow
+* right mouse button to armed
+* maintain left mouse button to stand
+* release left mouse button to launch the arrow
 * 'space' key to pause the game
 * 'q' key to quit the game
 
