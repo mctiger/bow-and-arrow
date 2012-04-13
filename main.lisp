@@ -88,7 +88,8 @@
 
 
 (defun play (&key (fullscreen nil) width height)
-  (format t +license+)
+  (format t '(:blue :normal) +license+)
+  (force-output)
   (sdl:with-init (sdl:sdl-init-video)
     (cond (fullscreen 
 	   (initialize-fullscreen-dimensions))
@@ -127,8 +128,7 @@
 	(:mouse-motion-event (:y y)
 			     (when (eq state :play)
 			       (move my-hero 0 y)))
-	(:idle ()
-	       
+	(:idle ()	       
 	       (unless (eq state :paused)
 		 ;; initialize a green background
 		 (sdl:clear-display sdl:*green*)
