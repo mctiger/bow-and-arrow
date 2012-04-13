@@ -37,20 +37,21 @@
   (remove-arrows-if-out-of-bounds my-hero)
   (draw my-hero)
   (draw-and-move-shoot-arrows my-hero)
-  ;; collision 
-  (mapcar #'(lambda (balloon)
-	      (let ((arrows (%arrows my-hero)))
-		(dolist (arrow  arrows nil)
-		  (when (and (colliding-p balloon arrow) (%alive-p balloon))
-		    (setf (%alive-p balloon) nil)))))
-	  balloons)
+  ;; collision
+  (let ((arrows (%arrows my-hero)))
+    (dolist (balloon balloons)
+      (dolist (arrow  arrows)
+	(when (and (colliding-p balloon arrow) (%alive-p balloon))
+	  (setf (%alive-p balloon) nil)))))
   ;; remove dead and out of bounds balloons
   (setf balloons 
 	(remove-if-fn-and-out-of-bounds balloons 
 					#'(lambda (balloon) 
 					    (not (%alive-p balloon)))))
-  (mapcar #'draw balloons)
-  (mapcar #'move* balloons)
+  (dolist (balloon balloons)
+    (draw balloon)
+    (move* balloon))
+
   (values 
    ;; the hero has no arrow 
    (and (null (%arrows my-hero)) (zerop (%nb-arrows my-hero)))
@@ -66,19 +67,19 @@
   (draw my-hero)
   (draw-and-move-shoot-arrows my-hero)
   ;; collision 
-  (mapcar #'(lambda (butterfly)
-	      (let ((arrows (%arrows my-hero)))
-		(dolist (arrow  arrows nil)
-		  (when (and (colliding-p butterfly arrow) (%bubled-p butterfly))
-		    (setf (%bubled-p butterfly) nil)))))
-	  butterflies)
-  
+  (let ((arrows (%arrows my-hero)))
+    (dolist (butterfly butterflies)
+      (dolist (arrow  arrows)
+	(when (and (colliding-p butterfly arrow) (%bubled-p butterfly))
+	  (setf (%bubled-p butterfly) nil)))))
   ;; remove unbubled and out of bounds balloons
   (setf butterflies 
 	(remove-if-fn-and-out-of-bounds butterflies 
 					#'(lambda (butterfly) (not (%bubled-p butterfly)))))
-  (mapcar #'draw butterflies)
-  (mapcar #'move* butterflies)
+  (dolist (butterfly butterflies)
+    (draw butterfly)
+    (move* butterfly))
+
   (values 
    ;; the hero has no arrow 
    (and (null (%arrows my-hero)) (zerop (%nb-arrows my-hero)))
@@ -88,7 +89,8 @@
 
 
 (defun play (&key (fullscreen nil) width height)
-  (format t '(:blue :normal) +license+)
+  (declare (type boolean fullscreen))
+  (format t '(:magenta :normal) +license+)
   (force-output)
   (sdl:with-init (sdl:sdl-init-video)
     (cond (fullscreen 
@@ -104,6 +106,9 @@
 	   butterflies
 	   (state :copyright)
 	   (level 1))
+      (declare (type list balloons butterflies)
+	       (type symbol state)
+	       (type fixnum level))
       (sdl:window   *video-width* *video-height*  :title-caption +title+ :icon-caption +title+)
       (sdl:show-cursor nil)
       (sdl:with-events ()

@@ -51,7 +51,6 @@
     (:stand   (draw-image hero +path-image-hero-stand+))))
 
 (defmethod change-state ((hero hero) mouse-key)
-
   (when (plusp (%nb-arrows hero))
     (case (%state hero)
       (:without-arrow
@@ -78,6 +77,7 @@
 
 (defmethod move ((hero hero) x y)
   (let ((hero-height (%height hero)))
+    (declare (type fixnum hero-height))
     (when (<= (+ y hero-height) 
 	      (+ *video-height* 
 		 (- hero-height +arrow-position-regarding-hero+)))
@@ -86,20 +86,27 @@
 
 
 (defun  make-hero (level)
-    (make-instance 'hero 
-		   :x 0
-		   :y 0 
-		   :width +hero-without-arrow-width+ 
-		   :height +hero-without-arrow-height+
-		   :nb-arrows (cdr (assoc level *alist-level-arrows*))))
+  (make-instance 'hero 
+		 :x 0
+		 :y 0 
+		 :width +hero-without-arrow-width+ 
+		 :height +hero-without-arrow-height+
+		 :nb-arrows (cdr (assoc level *alist-level-arrows*))))
 
 
 (defmethod remove-arrows-if-out-of-bounds ((hero hero))
-  (setf (%arrows hero) 
-	(remove-if #'(lambda (arrow)
-		       (out-of-bounds-p arrow)) (%arrows hero))))
-
+  (let ((arrows (%arrows hero))
+	(tmp nil))
+    (declare (type list arrows)  (type list tmp))
+    (dolist (arrow arrows)
+      (unless (out-of-bounds-p arrow)
+	(push arrow tmp)))
+    (setf (%arrows hero) tmp))) 
 
 (defmethod draw-and-move-shoot-arrows ((hero hero))
-  (mapcar #'draw (%arrows hero))
-  (mapcar #'move* (%arrows hero)))
+  (let ((arrows (%arrows hero)))
+    (declare (type list arrows))
+    (dolist (arrow arrows)
+      (draw arrow)
+      (move* arrow))))
+
