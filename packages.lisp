@@ -28,4 +28,5 @@
 (defpackage :bow-and-arrow 
   (:nicknames :bow)
   (:use :common-lisp)
+  (:shadow :common-lisp format)
   (:export :play :+images-directory+))
