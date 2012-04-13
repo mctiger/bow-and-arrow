@@ -44,7 +44,7 @@
   `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
      ,@(when doc (list doc))))
 
-;; some parts of the following code comes from :
+;; some parts of the following code come from :
 ;; https://github.com/sile/cl-mine/blob/master/console.lisp
 
 (deftype color () '(member :black :red :green :yellow :blue :magenta :cyan :white :normal))
