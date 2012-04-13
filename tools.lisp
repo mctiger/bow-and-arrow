@@ -27,7 +27,6 @@
 
 (in-package :bow-and-arrow)
 
-;; TODO : find another name for this function
 (defun random-lst-number (n &optional (len 1))
   (let (lst)
     (loop while (< (length lst) len)
@@ -44,3 +43,52 @@
 (defmacro define-constant (name value &optional doc)
   `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
      ,@(when doc (list doc))))
+
+;; some parts of the following code comes from :
+;; https://github.com/sile/cl-mine/blob/master/console.lisp
+
+(deftype color () '(member :black :red :green :yellow :blue :magenta :cyan :white :normal))
+
+(defparameter +escape+ (common-lisp:format nil "~c[" (code-char #8r33)))
+
+(defun color-code (color)
+  (declare (color color))
+  (ecase color 
+    (:black   30)
+    (:red     31)
+    (:green   32)
+    (:yellow  33)
+    (:blue    34)
+    (:magenta 35)
+    (:cyan    36)
+    (:white   37)
+    (:normal  39)))
+
+(defun style (x &key (color :normal) (bgcolor :normal) bold inverse underline)
+  (declare (color color bgcolor))
+  (common-lisp:format nil "~a~{~d;~}~d;~dm~a~a0m"
+		      +escape+
+		      (remove nil (list (and bold 1) (and underline 4) (and inverse 7)))
+		      (color-code color)
+		      (+ (color-code bgcolor) 10)
+		      x
+		      +escape+))
+
+
+(defmacro format (stream style control-string &rest format-arguments)
+  (let ((cddr-style (gensym)))
+    `(progn
+       (assert (listp ,style))
+       (if (null ,style)
+	   (common-lisp:format ,stream ,control-string ,@format-arguments)
+	   (let ((,cddr-style (cddr ,style)))
+	     (common-lisp:format ,stream 
+				 (style (common-lisp:format nil
+							    ,control-string ,@format-arguments)
+					:color (first ,style)
+					:bgcolor (second ,style)
+					:bold (member :bold ,cddr-style)
+					:inverse (member :inverse ,cddr-style)
+					:underline (member :underline ,cddr-style))))))))
+
+
