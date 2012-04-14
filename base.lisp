@@ -54,10 +54,11 @@
 	(left2 (%x base2))
 	(top1 (%y base1))
 	(top2 (%y base2)))
-    (not (or (< right1 left2)
-	     (< bottom1 top2)
-	     (> left1 right2)
-	     (> top1 bottom2)))))
+    (declare (type fixnum right1 right2 bottom1 bottom2 left1 left2 top1 top2))
+    (the boolean (not (or (< right1 left2)
+			  (< bottom1 top2)
+			  (> left1 right2)
+			  (> top1 bottom2))))))
 
 (defmethod draw-image (base path)
   (sdl:draw-surface-at-* (sdl:load-image path :alpha 0 :image-type :png) ; (alpha == 0) =>  transparency
