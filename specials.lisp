@@ -27,34 +27,34 @@
 
 (in-package :bow-and-arrow)
 
-(define-constant +license+
+(defparameter +license+
     ";;; Welcome to Bow & Arrow - A remake of W* 1995 game
 ;;; Written by Kaïraba Cissé <ckairaba@gmail.com>")
 
-(define-constant +title+ "Bow & Arrow")
+(defparameter +title+ "Bow & Arrow")
 
-(define-constant *speed-arrow* 10)
+(defparameter *speed-arrow* 10)
 
-(define-constant *speed-balloon* 2)
+(defparameter *speed-balloon* 2)
 
 ;; TODO : find a better name for the following constant
-(define-constant  *alist-level-arrows*
-    '((1 . 15) (2 . 15) (3 . 15)))
+(defparameter  *alist-level-arrows*
+    `((1 . 15) (2 . 15) (3 . 15) (4 . ,most-positive-fixnum)))
 
 (defvar *video-height*)
 (defvar *video-width*)
 
-(define-constant +images-directory+
+(defparameter +images-directory+
     (merge-pathnames #P"images/"  (asdf:system-source-directory 'bow-and-arrow)))
 
 (defmacro def-image-path (variable name)
-  `(define-constant ,variable 
+  `(defparameter ,variable 
        (merge-pathnames ,name +images-directory+)))
 
 ;; arrow
 (def-image-path +path-image-arrow+ "arrow.png")
-(define-constant +arrow-width+ 51)
-(define-constant +arrow-height+ 5)
+(defparameter +arrow-width+ 51)
+(defparameter +arrow-height+ 5)
 
 
 ;; balloon
@@ -68,140 +68,140 @@
 (def-image-path +path-image-balloon-yellow-dead+
     "balloon_yellow_dead.png")
 
-(define-constant +balloon-width+ 25)
-(define-constant +balloon-height+ 39)
+(defparameter +balloon-width+ 25)
+(defparameter +balloon-height+ 39)
 
-(define-constant +balloon-dead-width+ 10)
-(define-constant +balloon-dead-width+ 45)
+(defparameter +balloon-dead-width+ 10)
+(defparameter +balloon-dead-width+ 45)
 
 
 
 ;; bird
 (def-image-path +path-image-bird+
     "bird.png")
-(define-constant +bird-width+ 27)
-(define-constant +bird-height+ 21)
+(defparameter +bird-width+ 27)
+(defparameter +bird-height+ 21)
 
 
 ;; bulls-eye
 (def-image-path +path-image-bulls-eye+
     "bulls_eye.png")
-(define-constant +bulls-eye-width+ 17)
-(define-constant +bulls-eye-height+ 40)
+(defparameter +bulls-eye-width+ 17)
+(defparameter +bulls-eye-height+ 40)
 
 
 ;; butterfly
 (def-image-path +path-image-butterfly+
     "butterfly.png")
-(define-constant +butterfly-width+ 18)
-(define-constant +butterfly-height+ 19)
+(defparameter +butterfly-width+ 18)
+(defparameter +butterfly-height+ 19)
 
 (def-image-path +path-image-butterfly-bubled+
     "butterfly_bubled.png")
-(define-constant +butterfly-bubled-width+ 30)
-(define-constant +butterfly-bubled-height+ 32)
+(defparameter +butterfly-bubled-width+ 30)
+(defparameter +butterfly-bubled-height+ 32)
 
 
 ;; fire
 (def-image-path +path-image-fire1+
     "fire1.png")
-(define-constant +fire1-width+ 49)
-(define-constant +fire1-height+ 20)
+(defparameter +fire1-width+ 49)
+(defparameter +fire1-height+ 20)
 
 (def-image-path +path-image-fire2+
     "fire2.png")
-(define-constant +fire2-width+ 49)
-(define-constant +fire2-height+ 20)
+(defparameter +fire2-width+ 49)
+(defparameter +fire2-height+ 20)
 
 (def-image-path +path-image-fire-dead+
     "fire_dead.png")
-(define-constant +fire-dead-width+ 52)
-(define-constant +fire-dead-height+ 20)
+(defparameter +fire-dead-width+ 52)
+(defparameter +fire-dead-height+ 20)
 
 
 ;; hero
 (def-image-path +path-image-hero-armed+
     "hero_armed.png")
-(define-constant +hero-armed-width+ 99)
-(define-constant +hero-armed-height+ 105)
+(defparameter +hero-armed-width+ 99)
+(defparameter +hero-armed-height+ 105)
 
 (def-image-path +path-image-hero-stand+
     "hero_stand.png")
-(define-constant +hero-stand-width+ 128)
-(define-constant +hero-stand-height+ 106)
+(defparameter +hero-stand-width+ 128)
+(defparameter +hero-stand-height+ 106)
 
 (def-image-path +path-image-hero-without-arrow+
     "hero_without_arrow.png")
-(define-constant +hero-without-arrow-width+ 94)
-(define-constant +hero-without-arrow-height+ 106)
+(defparameter +hero-without-arrow-width+ 94)
+(defparameter +hero-without-arrow-height+ 106)
 
 ;; let x and y, the position of hero. let w and h, the width and 
 ;; height of hero. So, (x+w) and (y+40) is the position of the arrow
 ;; when the hero shoots an arrow 
 ;; 40 is the position of the arrow in the image hero_armed.png
-(define-constant +arrow-position-regarding-hero+ 40)
+(defparameter +arrow-position-regarding-hero+ 40)
 
 ;; paper
 (def-image-path +path-image-paper+
     "paper.png")
-(define-constant +paper-width+ 286)
-(define-constant +paper-height+ 220)
+(defparameter +paper-width+ 286)
+(defparameter +paper-height+ 220)
 
 
 ;; slime
 (def-image-path +path-image-slime+
     "slime.png")
-(define-constant +slime-width+ 39)
-(define-constant +slime-height+ 49)
+(defparameter +slime-width+ 39)
+(defparameter +slime-height+ 49)
 
 (def-image-path +path-image-slime-dead+
     "slime_dead.png")
-(define-constant +slime-width+ 40)
-(define-constant +slime-height+ 49)
+(defparameter +slime-width+ 40)
+(defparameter +slime-height+ 49)
 
 
 ;; vulture
 (def-image-path +path-image-vulture1+
     "vulture1.png")
-(define-constant +vulture1-width+ 55)
-(define-constant +vulture1-height+ 51)
+(defparameter +vulture1-width+ 55)
+(defparameter +vulture1-height+ 51)
 
 (def-image-path +path-image-vulture2+
     "vulture2.png")
-(define-constant +vulture2-width+ 55)
-(define-constant +vulture2-height+ 34)
+(defparameter +vulture2-width+ 55)
+(defparameter +vulture2-height+ 34)
 
 (def-image-path +path-image-vulture-dead+
     "vulture_dead.png")
-(define-constant +vulture-dead-width+ 55)
-(define-constant +vulture-dead-height+ 51)
+(defparameter +vulture-dead-width+ 55)
+(defparameter +vulture-dead-height+ 51)
 
 
 ;; wind
 (def-image-path +path-image-wind1+
     "wind1.png")
-(define-constant +wind1-width+ 30)
-(define-constant +wind1-height+ 32)
+(defparameter +wind1-width+ 30)
+(defparameter +wind1-height+ 32)
 
 (def-image-path +path-image-wind2+
     "wind2.png")
-(define-constant +wind2-width+ 30)
-(define-constant +wind2-height+ 32)
+(defparameter +wind2-width+ 30)
+(defparameter +wind2-height+ 32)
 
 (def-image-path +path-image-wind-dead+
     "wind_dead.png")
-(define-constant +wind-dead-width+ 37)
-(define-constant +wind-dead-height+ 32)
+(defparameter +wind-dead-width+ 37)
+(defparameter +wind-dead-height+ 32)
 
 
-(define-constant *end-paper*
+(defparameter *end-paper*
     '("No doubt, You are "
       ""
       "The GREATEST Archer"))
 
-(define-constant *copyright-paper* 
-    '("Common Lisp - Bow and Arrow" 
-      "version 1.3" 
+(defparameter *copyright-paper* 
+    `("Common Lisp - Bow and Arrow" 
+      "version 1.4"
       "" 
       "In search of" 
       "The GREATEST Archer"
@@ -213,7 +213,7 @@
       "Kaïraba Cissé"
       "ckairaba@gmail.com"))
 
-(define-constant *level-one-paper*
+(defparameter *level-one-paper*
     '("Target Practice" 
       "Our journey begins on the target range." 
       "" 
@@ -222,7 +222,7 @@
       "task -"
       "Shoot all the balloons."))
 
-(define-constant *level-two-paper*
+(defparameter *level-two-paper*
     '("More Target Practice"
       ""
       "Nice shooting !"
@@ -234,7 +234,7 @@
       "Only shoot the RED balloons."))
 
 
-(define-constant *level-three-paper*
+(defparameter *level-three-paper*
     '("Bouncing Bubbles"
       ""
       "Having had enough target practice for"
@@ -244,7 +244,7 @@
       "the little creatures, you decide to free"
       "them ..."))
 
-(define-constant *level-four-paper*
+(defparameter *level-four-paper*
     '("SLIMED"
       ""
       "The greatful butterflies tell of an evil"
@@ -254,13 +254,22 @@
       "Greatest ? Hah ! you snicker. The Quest"
       "begins. In you path : the SWAMP ..."))
 
-(define-constant *end-of-level-four-paper*
+(defparameter *end-of-level-four-paper*
     '("You've been Slimed"
       ""
       "The End"))
 
 
-(define-constant *hero-without-arrows-paper*
+(defparameter *level-five-paper*
+    '("BULLS Eye"
+      ""
+      "As The Quest proceeds you will be"
+      "tested for speed, cuning, and accuracy."
+      "The tests begin !"
+      "You Need a Bull's Eye to Continue ..."))
+
+
+(defparameter *hero-without-arrows-paper*
     '("What is an archer without his arrows ?"
       "He doesn't continue in this Game."
       ""

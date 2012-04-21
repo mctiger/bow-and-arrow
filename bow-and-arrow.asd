@@ -25,15 +25,22 @@
 ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+(defpackage :bow-and-arrow 
+  (:nicknames :bow)
+  (:use :common-lisp)
+  (:shadow :common-lisp format)
+  (:export :play :+images-directory+ :+version+))
+
+(defparameter bow-and-arrow:+version+ "1.4")
+
 (asdf:defsystem :bow-and-arrow
   :description "a remake of W* 1995 game Bow & Arrow"
-  :version "1.3"
+  :version bow-and-arrow:+version+
   :author "Kaïraba Cissé <ckairaba@gmail.com>"
   :licence "MIT"
   :depends-on (#:asdf #:lispbuilder-sdl #:lispbuilder-sdl-image)
   :serial t
-  :components ((:file "packages")
-	       (:file "tools")
+  :components ((:file "tools")
 	       (:file "specials")
 	       (:file "base")
 	       (:file "paper")
@@ -41,6 +48,7 @@
 	       (:file "arrow")
 	       (:file "hero")
 	       (:file "butterfly")
+	       (:file "slime")
 	       (:file "main")))
 
 

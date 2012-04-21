@@ -65,9 +65,14 @@
      (draw (make-paper *level-three-paper*)))
     (4
      (draw (make-paper *level-four-paper*)))
-
+    (5
+     (draw (make-paper *level-five-paper*)))
     ))
 
+(defun draw-dead-paper (level)
+  (case level
+    (4 
+     (draw (make-paper *end-of-level-four-paper*)))))
 
 (defun draw-copyright-paper nil
   (draw (make-paper *copyright-paper*)))
@@ -78,3 +83,8 @@
 
 (defun draw-end-paper nil
   (draw (make-paper *end-paper*)))
+
+
+(defun draw-end-paper nil
+  (draw (make-paper *end-paper*)))
+

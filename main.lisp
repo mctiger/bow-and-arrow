@@ -87,6 +87,36 @@
    (every #'(lambda (butterfly) (not (%bubled-p butterfly)))
 	  butterflies)))
 
+(defun level-4 (my-hero slimes)
+  ;; remove dead or negative bounds slimes
+  (setf slimes 
+	(remove-if-fn-or-negative-bounds slimes 
+					 #'(lambda (slime) 
+					     (not (slime-alive-p slime)))))
+  ;; remove arrows shoot by hero if they are out of bounds
+  (remove-arrows-if-out-of-bounds my-hero)
+  (draw my-hero)
+  (draw-and-move-shoot-arrows my-hero)
+  
+  ;; collision between arrows and slimes
+  (let ((arrows (%arrows my-hero)))
+    (dolist (arrow  arrows nil)
+      (dolist (slime slimes)
+	(when (and (colliding-p slime arrow) (slime-alive-p slime))
+	  (setf (slime-alive-p slime) nil
+		(%alive-p arrow) nil)))))
+  
+  ;; collision between hero and slimes
+  (dolist (slime slimes)
+    (when (and (colliding-p slime my-hero) (slime-alive-p slime))
+      (setf (%alive-p my-hero) nil)) 
+    (draw slime)
+    (move* slime)) 
+
+  (values 
+   (%alive-p my-hero)
+   slimes))
+
 
 (defun play (&key (fullscreen nil) width height)
   (declare (type boolean fullscreen))
@@ -101,11 +131,13 @@
 	  (t 
 	   (setf *video-width* 1000
 		 *video-height* 720)))
-    (let* (my-hero
+    (let* ((first-level 1)
+	   my-hero
 	   balloons
 	   butterflies
+	   slimes
 	   (state :copyright)
-	   (level 1))
+	   (level first-level))
       (declare (type list balloons butterflies)
 	       (type symbol state)
 	       (type fixnum level))
@@ -124,6 +156,7 @@
 				  (case state 
 				    (:copyright (setf state :level))
 				    (:level (setf state :play))
+				    (:dead (setf state :copyright) (setf level first-level))
 				    (:play (change-state my-hero button))
 				    (:no-arrows (setf state :copyright))
 				    (:end (sdl:push-quit-event))))
@@ -140,6 +173,7 @@
 		 (case state
 		   (:copyright  (draw-copyright-paper))
 		   (:end  (draw-end-paper))
+		   (:dead (draw-dead-paper level))
 		   (:no-arrows  (draw-no-more-arrows-paper))
 		   (:level 
 		    (draw-level-paper level)
@@ -151,7 +185,9 @@
 		      ;; there are 15 balloons at level 2 (12 red and 3 yellow)
 		      (2 (setq balloons (make-balloons-random-list 15)))
 		      ;; there are 15 bubled butterflies at level 3
-		      (3 (setq butterflies (make-butterflies-random-list 15)))))
+		      (3 (setq butterflies (make-butterflies-random-list 15)))
+		      ;; there are 50 slimes at level 4
+		      (4 (setq slimes (make-slimes-random-list 50)))))
 		   (:play
 		    (sdl:clear-display sdl:*green*)
 		    (case level
@@ -162,15 +198,20 @@
 			     (3 (level-3 my-hero butterflies)))
 			 (cond ((and any-arrow (not any-item-alive))
 				(setq state :no-arrows
-				      level 1))
+				      level first-level))
 			       ((or
 				 (and any-arrow any-item-alive) 
 				 ;; hero has some arrows and each balloon is dead
 				 (and (not any-arrow) any-item-alive))
 				(setq state :level)
 				(incf level)))))
+		      (4 (multiple-value-bind (hero-alive-p more-slimes)
+			     (level-4 my-hero slimes)
+			   (cond ((not hero-alive-p) (setf state :dead))
+				 ((not more-slimes) (setf level (1+ level) state :level))
+				 )))
 		      (otherwise (setf state :end
-				       level 1))))))
+				       level first-level))))))
 	       (sdl:update-display))))))
 
 

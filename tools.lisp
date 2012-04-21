@@ -39,11 +39,6 @@
   (+ i (random (1+ (- j i)))))
 
 
-;; from sbcl manual http://www.sbcl.org/manual/Defining-Constants.html
-(defmacro define-constant (name value &optional doc)
-  `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
-     ,@(when doc (list doc))))
-
 ;; some parts of the following code come from :
 ;; https://github.com/sile/cl-mine/blob/master/console.lisp
 

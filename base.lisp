@@ -61,8 +61,10 @@
 			  (> top1 bottom2))))))
 
 (defmethod draw-image (base path)
-  (sdl:draw-surface-at-* (sdl:load-image path :alpha 0 :image-type :png) ; (alpha == 0) =>  transparency
-			 (%x base) 
+  (sdl:draw-surface-at-* (sdl:load-image path
+					 :alpha 0  ; (alpha == 0) =>  transparency
+					 :image-type :png)
+			 (%x base)
 			 (%y base)))
 
 
@@ -77,10 +79,33 @@
       (> (%x base) *video-width*)
       (> (%y base) *video-height*)))
 
-
+(defmethod negative-bounds-p (base)
+  (or (minusp (%x base))
+      (minusp (%y base))))
 
 (defun remove-if-fn-and-out-of-bounds (items fn)
   (remove-if #'(lambda (item) 
 		 (and (funcall fn item)
 		      (out-of-bounds-p item))) 
 	     items))
+
+(defun remove-if-fn-or-out-of-bounds (items fn)
+  (remove-if #'(lambda (item) 
+		 (or (funcall fn item)
+		      (out-of-bounds-p item))) 
+	     items))
+
+
+(defun remove-if-fn-and-negative-bounds (items fn)
+  (remove-if #'(lambda (item) 
+		 (and (funcall fn item)
+		      (negative-bounds-p item))) 
+	     items))
+
+
+(defun remove-if-fn-or-negative-bounds (items fn)
+  (remove-if #'(lambda (item) 
+		 (or (funcall fn item)
+		      (negative-bounds-p item))) 
+	     items))
+
