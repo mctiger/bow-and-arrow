@@ -89,6 +89,7 @@
   (make-instance 'hero 
 		 :x 0
 		 :y 0 
+		 :level level
 		 :width +hero-without-arrow-width+ 
 		 :height +hero-without-arrow-height+
 		 :nb-arrows (cdr (assoc level *alist-level-arrows*))))

@@ -32,6 +32,7 @@
     (setf *video-width* (aref dimensions 0)
 	  *video-height* (aref dimensions 1))))
 
+
 (defun level-1-or-2 (my-hero balloons)
   ;; remove arrows shoot by hero if they are out of bounds
   (remove-arrows-if-out-of-bounds my-hero)
@@ -120,7 +121,7 @@
 
 (defun play (&key (fullscreen nil) width height)
   (declare (type boolean fullscreen))
-  (format t '(:magenta :normal) +license+)
+  (format t +license+)
   (force-output)
   (sdl:with-init (sdl:sdl-init-video)
     (cond (fullscreen 
@@ -140,7 +141,7 @@
 	   (level first-level))
       (declare (type list balloons butterflies)
 	       (type symbol state)
-	       (type fixnum level))
+	       (type fixnum level first-level))
       (sdl:window   *video-width* *video-height*  :title-caption +title+ :icon-caption +title+)
       (sdl:show-cursor nil)
       (sdl:with-events ()
@@ -170,6 +171,9 @@
 	       (unless (eq state :paused)
 		 ;; initialize a green background
 		 (sdl:clear-display sdl:*green*)
+		 ;; set caption
+		 (unless (eq state :play)
+		   (sdl:set-caption "Bow & Arrow" "Bow & Arrow"))
 		 (case state
 		   (:copyright  (draw-copyright-paper))
 		   (:end  (draw-end-paper))
@@ -189,7 +193,11 @@
 		      ;; there are 50 slimes at level 4
 		      (4 (setq slimes (make-slimes-random-list 50)))))
 		   (:play
-		    (sdl:clear-display sdl:*green*)
+		    (sdl:set-caption (format nil 
+					     "Level : ~A Arrows : ~A" 
+					     (%level my-hero) 
+					     (%nb-arrows my-hero))
+				     "Bow & Arrow")
 		    (case level
 		      ((1 2 3)
 		       (multiple-value-bind (any-arrow any-item-alive)
