@@ -28,7 +28,6 @@
 (defpackage :bow-and-arrow 
   (:nicknames :bow)
   (:use :common-lisp)
-  (:shadow :common-lisp format)
   (:export :play :+images-directory+ :+version+))
 
 (defparameter bow-and-arrow:+version+ "1.4")
