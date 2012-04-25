@@ -28,6 +28,7 @@
 (in-package :bow-and-arrow)
 
 (defun random-lst-number (n &optional (len 1))
+  (declare (type fixnum n len))
   (let (lst)
     (loop while (< (length lst) len)
        do  (let ((r (random (1+ n))))
@@ -35,6 +36,8 @@
 	       (push r lst))))
     lst))
 
+(declaim (inline random*))
 (defun random* (i j)
-  (+ i (random (1+ (- j i)))))
+  (declare (type fixnum i j))
+  (the fixnum (+ i (random (1+ (- j i))))))
 
