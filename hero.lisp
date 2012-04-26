@@ -27,17 +27,53 @@
 
 (in-package :bow-and-arrow)
 
-;;; HERO class
-;;; TODO : a great feature : hero with infinite number of arrows (-1)
-(defclass hero (base)
-  (;; state can be :without-arrow, :stand or :armed
-   (state  :initform :without-arrow :initarg :state :accessor %state)
+;;; Arrow
+(defstruct (arrow (:include base
+			    (width +arrow-width+)
+			    (height +arrow-height+)
+			    (speed *speed-arrow*))))
+(defgeneric move* (arrow))
+(defmethod draw ((arrow arrow))
+  (draw-image arrow +path-image-arrow+))
+(defmethod move* ((arrow arrow))
+  (incf (%x arrow) (%speed arrow)))
+
+;;; Hero
+(defstruct (hero (:include base 
+			   (width +hero-without-arrow-width+)
+			   (height +hero-without-arrow-height+)))
+  ;; state can be :without-arrow, :stand or :armed
+  (state :without-arrow :type symbol)
    ;; number of arrows that the hero can used
-   (nb-arrows :initform 0 :initarg :nb-arrows :accessor %nb-arrows)
-   ;; the level slot is is necessary ?
-   (level :initform 1 :initarg :level :accessor %level)
-   ;; the set of arrows shoots by this hero
-   (arrows :initform nil :initarg :arrows :accessor %arrows)))
+  (nb-arrows 0 :type fixnum)
+  ;; the level
+  (level 1 :type fixnum)
+  ;; the set of arrows shoots by this hero
+  (arrows nil :type list))
+
+;; %state
+(defmethod %state ((hero hero))
+  (hero-state hero))
+(defmethod (setf %state) (state (hero hero))
+  (setf (hero-state hero) state))
+
+;; %nb-arrows
+(defmethod %nb-arrows ((hero hero))
+  (hero-nb-arrows hero))
+(defmethod (setf %nb-arrows) (nb-arrows (hero hero))
+  (setf (hero-nb-arrows hero) nb-arrows))
+
+;; %level
+(defmethod %level ((hero hero))
+  (hero-level hero))
+(defmethod (setf %level) (level (hero hero))
+  (setf (hero-level hero) level))
+
+;; %arrows
+(defmethod %arrows ((hero hero))
+  (hero-arrows hero))
+(defmethod (setf %arrows) (arrows (hero hero))
+  (setf (hero-arrows hero) arrows))
 
 
 (defgeneric change-state (hero mouse-key))
@@ -66,15 +102,15 @@
       (:armed
        (when (eql mouse-key sdl:sdl-button-left)
 	 ;; this order is important
-	 (push (make-arrow hero) (%arrows hero))
+	 (push (make-arrow :x (+ (%x hero) (%width hero)) 
+			   :y (+ (%y hero) +arrow-position-regarding-hero+)) 
+	       (%arrows hero))
 	 (decf (%nb-arrows hero))
 	 (setf (%width hero) +hero-without-arrow-width+)
 	 (setf (%height hero) +hero-without-arrow-height+)
 	 (setf (%state hero) :without-arrow))))))
 
-
 ;; TODO : extend this function for a better display
-
 (defmethod move ((hero hero) x y)
   (let ((hero-height (%height hero)))
     (declare (type fixnum hero-height))
@@ -83,17 +119,6 @@
 		 (- hero-height +arrow-position-regarding-hero+)))
       (setf (%x hero) x
 	    (%y hero) y))))
-
-
-(defun  make-hero (level)
-  (make-instance 'hero 
-		 :x 0
-		 :y 0 
-		 :level level
-		 :width +hero-without-arrow-width+ 
-		 :height +hero-without-arrow-height+
-		 :nb-arrows (cdr (assoc level *alist-level-arrows*))))
-
 
 (defmethod remove-arrows-if-out-of-bounds ((hero hero))
   (let ((arrows (%arrows hero))
@@ -110,4 +135,3 @@
     (dolist (arrow arrows)
       (draw arrow)
       (move* arrow))))
-

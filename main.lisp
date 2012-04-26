@@ -44,6 +44,7 @@
       (dolist (arrow  arrows)
 	(when (and (colliding-p balloon arrow) (%alive-p balloon))
 	  (setf (%alive-p balloon) nil)))))
+
   ;; remove dead and out of bounds balloons
   (setf balloons 
 	(remove-if-fn-and-out-of-bounds balloons 
@@ -181,8 +182,10 @@
 		   (:no-arrows  (draw-no-more-arrows-paper))
 		   (:level 
 		    (draw-level-paper level)
+
 		    ;; on each level, we create a new hero
-		    (setf my-hero (make-hero level))
+		    (setf my-hero (make-hero :level level 
+					     :nb-arrows (cdr (assoc level *alist-level-arrows*))))
 		    (case level
 		      ;; there are 15 balloons at level 1
 		      (1 (setq balloons (make-balloons-list 15)))

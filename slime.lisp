@@ -27,16 +27,12 @@
 
 (in-package :bow-and-arrow)
 
-(defstruct slime
-  (x 0 :type fixnum)
-  (y 0 :type fixnum)
-  (speed 1 :type fixnum)
-  (width +slime-width+ :type fixnum)
-  (height +slime-height+ :type fixnum)
-  (discard nil :type boolean)
-  (alive-p t :type boolean))
-
-
+;;; Slime
+(defstruct (slime (:include base 
+			    (y (random (- *video-height* +slime-height+)))
+			    (width +slime-width+)
+			    (height +slime-height+)
+			    (speed 3))))
 
 (defmethod colliding-p ((slime slime) base2)
   (let ((right1 (+ (slime-x slime) (slime-width slime)))
@@ -52,53 +48,23 @@
 	     (> left1 right2)
 	     (> top1 bottom2)))))
 
-
-(defmethod draw-image ((slime slime) path)
-  (sdl:draw-surface-at-* (sdl:load-image path :alpha 0 :image-type :png) ; (alpha == 0) =>  transparency
-			 (slime-x slime) 
-			 (slime-y slime)))
-
-
-(defmethod  move ((slime slime) x y)
-  (setf (slime-x slime) x
-	(slime-y slime) y))
-
-
-(defmethod out-of-bounds-p ((slime slime))
-  (or (minusp (slime-x slime))
-      (minusp (slime-y slime))
-      (> (slime-x slime) *video-width*)
-      (> (slime-y slime) *video-height*)))
-
-(defmethod negative-bounds-p ((slime slime))
-  (or (minusp (slime-x slime))
-      (minusp (slime-y slime))))
-  
-
 (defmethod draw ((slime slime))
-  (if (slime-alive-p slime)
+  (if (%alive-p slime)
       (draw-image slime +path-image-slime+)
       (draw-image slime +path-image-slime-dead+)))
 
-
-(defun make-slime* (&key 
-		    (x *video-width*) 
-		    (y (random (- *video-height* +slime-height+))) 
-		    (speed 3))
-  (make-slime :x x :y y :speed speed))
-
-
 (defmethod move* ((slime slime))
-  (when (slime-alive-p slime)
-    (decf (slime-x slime) (slime-speed slime))))
+  (when (%alive-p slime)
+    (decf (%x slime) (%speed slime))))
 
 
 (defun make-slimes-random-list (n)
+  (declare (type fixnum n))
   (let ((slimes nil)
 	(x *video-width*))
     (declare (type list slimes))
     (loop repeat n do
-	 (push (make-slime* :x x) slimes)
+	 (push (make-slime :x x) slimes)
 	 (incf x (* 2 +slime-width+)))
     (the list slimes)))
 

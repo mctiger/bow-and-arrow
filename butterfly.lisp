@@ -27,21 +27,25 @@
 
 (in-package :bow-and-arrow)
 
-(defclass butterfly (base)
-  (;; direction is the initial direction and can be :up :down
-   (direction :initform :up :initarg :direction :accessor %direction)
-   ;; bubled-p return t if this butterfly is bubled otherwise nil
-   (bubled-p :initform t :initarg :bubled :accessor %bubled-p)))
+(defstruct (butterfly (:include base
+				(width +butterfly-bubled-width+)
+				(height  +butterfly-bubled-height+)))
+  ;; direction is the initial direction and can be :up :down
+  (direction :up :type symbol)
+  ;; bubled-p return t if this butterfly is bubled otherwise nil
+  (bubled-p t :type boolean))
 
+;; %direction
+(defmethod %direction ((butterfly butterfly))
+  (butterfly-direction butterfly))
+(defmethod (setf %direction) (direction (butterfly butterfly))
+  (setf (butterfly-direction butterfly) direction))
 
-
-(defun make-butterfly (x y &key (direction :up))
-  (make-instance 'butterfly
-		 :x x
-		 :y y
-		 :width +butterfly-bubled-width+
-		 :height  +butterfly-bubled-height+
-		 :direction direction))
+;; %bubled-p
+(defmethod %bubled-p ((butterfly butterfly))
+  (butterfly-bubled-p butterfly))
+(defmethod (setf %bubled-p) (bubled-p (butterfly butterfly))
+  (setf (butterfly-bubled-p butterfly) bubled-p))
 
 (defmethod draw ((butterfly butterfly))
   (if (%bubled-p butterfly)
@@ -70,8 +74,8 @@
 	;; (of size +butterfly-bubled-width+) between the last butterfly and the board
 	(x (- *video-width* (* 2 +butterfly-bubled-width+))))
     (loop repeat n do
-	 (push (make-butterfly x 
-			       (random *video-height*) 
+	 (push (make-butterfly :x x 
+			       :y (random *video-height*) 
 			       :direction (if (zerop (random 2)) :up :down))
 	       butterflies)
 	 (decf x (1+ +butterfly-bubled-width+)))

@@ -27,24 +27,59 @@
 
 (in-package :bow-and-arrow)
 
-;;; BASE class
+;;; Base
+(defstruct base
+  (x 0 :type fixnum)
+  (y 0 :type fixnum)
+  (speed 1 :type fixnum)
+  (width 0 :type fixnum)
+  (height 0 :type fixnum)
+  (alive-p t :type boolean))
 
-(defclass base ()
-  ((x :initarg :x :accessor %x)
-   (y :initarg :y :accessor %y)
-   (speed :initform 1 :initarg :speed :accessor %speed)
-   (width :initarg :width :accessor %width)
-   (height :initarg :height :accessor %height)
-   (discard :initform nil :reader   %discard-p)
-   (alive :initform t :accessor %alive-p)))
+;; %x
+(defmethod %x ((base base))
+  (base-x base))
+(defmethod (setf %x) ((x fixnum) (base base))
+  (setf (base-x base) x))
 
+;; %y
+(defmethod %y ((base base))
+  (base-y base))
+(defmethod (setf %y) ((y fixnum) (base base))
+  (setf (base-y base) y))
 
+;; %speed
+(defmethod %speed ((base base))
+  (base-speed base))
+(defmethod (setf %speed) ((speed fixnum) (base base))
+  (setf (base-speed base) speed))
+
+;; %width
+(defmethod %width ((base base))
+  (base-width base))
+(defmethod (setf %width) ((width fixnum) (base base))
+  (setf (base-width base) width))
+
+;; %height
+(defmethod %height ((base base))
+  (base-height base))
+(defmethod (setf %height) ((height fixnum) (base base))
+  (setf (base-height base) height))
+
+;; %alive-p
+(defmethod %alive-p ((base base))
+  (base-alive-p base))
+(defmethod (setf %alive-p) (alive-p (base base))
+  (setf (base-alive-p base) alive-p))
+
+;; generics
 (defgeneric colliding-p (base1 base2))
 (defgeneric draw (base))
 (defgeneric draw-image (base path))
 (defgeneric move (base x y))
 (defgeneric out-of-bounds-p (base))
 
+;; methods
 (defmethod colliding-p (base1 base2)
   (let ((right1 (+ (%x base1) (%width base1)))
 	(right2 (+ (%x base2) (%width base2)))
@@ -83,6 +118,7 @@
   (or (minusp (%x base))
       (minusp (%y base))))
 
+;; functions
 (defun remove-if-fn-and-out-of-bounds (items fn)
   (remove-if #'(lambda (item) 
 		 (and (funcall fn item)

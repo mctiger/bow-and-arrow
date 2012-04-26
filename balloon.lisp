@@ -27,10 +27,20 @@
 
 (in-package :bow-and-arrow)
 
-(defclass balloon (base)
-  (;; color can be :red or :yellow for the moment
-   (color :initform :red :initarg :color :accessor %color)))
+;; Balloon
+(defstruct (balloon (:include base 
+			      (y *video-height*) 
+			      (width +balloon-width+) 
+			      (height +balloon-height+) 
+			      (speed *speed-balloon*)))
+  (color :red :type symbol))
+		    
+;; %color
+(defmethod %color ((balloon balloon))
+  (balloon-color balloon))
 
+(defmethod (setf %color) ((balloon balloon) color)
+  (setf (balloon-color balloon) color))
 
 (defmethod draw ((balloon balloon))
   (let ((path-image (if (eq (%color balloon) :red)
@@ -43,31 +53,17 @@
 	  (draw-image balloon path-image)
 	  (draw-image balloon path-image-dead))))
 
-
-(defun make-balloon (x &key (y *video-height*) 
-		            (color :red) 
-		            (width +balloon-width+) 
-		            (height +balloon-height+) 
-		            (speed *speed-balloon*))
-    (make-instance 'balloon
-		   :x x 
-		   :y y
-		   :color color
-		   :width width
-		   :height height
-		   :speed speed))
-
 (defun make-balloons-list (n)
   (let ((balloons nil)
 	;; we multiply by 2 because there is a blank space 
 	;; (of size +balloon-width+) between the last balloon and the board
 	(x (- *video-width* (* 2 +balloon-width+)))) 
     (loop repeat n do
-	 (push (make-balloon x) balloons)
+	 (push (make-balloon :x x) balloons)
 	 (decf x (1+ +balloon-width+)))
     balloons))
 
-;; TODO : find a solution to simplify code because it's very obscure
+
 (defun make-balloons-random-list (n)
   (let ((balloons nil)
 	(j 1)
@@ -77,17 +73,16 @@
 	(x (- *video-width* (* 2 +balloon-width+))))
     (loop for i from 1 to n do
 	 (if (member i yellow-balloons-position)
-	     (push (make-balloon x 
+	     (push (make-balloon :x x 
 				 :color :yellow 
 				 :y  (+ *video-height* (random 100)) 
 				 :speed (incf j)) balloons)
-	     (push (make-balloon x 
+	     (push (make-balloon :x x 
 				 :color :red 
 				 :speed (random* 1 3) 
 				 :y (+ *video-height* (random 100))) balloons))
 	 (decf x (1+ +balloon-width+)))
     balloons))
-
 
 (defmethod move* ((balloon balloon))
   (if (%alive-p balloon)

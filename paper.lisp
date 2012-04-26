@@ -27,9 +27,21 @@
 
 (in-package :bow-and-arrow)
 
-(defclass paper (base)
-  (;; `strings' is a list of string. Each string represents just one line
-   (strings     :initform nil :initarg :strings :accessor %strings)))
+;;; Paper
+(defstruct (paper (:include base 
+			    (x (- (/ *video-width* 2) (/ +paper-width+ 2)))
+			    (y (- (round (/ *video-height* 3)) (/  +paper-height+ 2)))
+			    (width  +paper-width+)
+			    (height  +paper-height+)))
+  strings nil :type list)
+
+;; %strings
+(defmethod %strings ((paper paper))
+  (paper-strings paper))
+
+(defmethod (setf %strings) ((paper paper) (strings list))
+  (setf (paper-strings paper) strings))
+
 
 (defmethod draw ((paper paper))
   (draw-image paper +path-image-paper+)
@@ -44,47 +56,36 @@
 			       :justify :center)
       (incf top 13)))) ;; 13 because in *font-6x13* the second number is 13
 
-
-(defun make-paper (&optional strings)
-  (let ((x (- (/ *video-width* 2) (/ +paper-width+ 2)))
-	(y (- (round (/ *video-height* 3)) (/  +paper-height+ 2))))
-  (make-instance 'paper 
-		 :x x 
-		 :y y 
-		 :width  +paper-width+ 
-		 :height  +paper-height+
-		 :strings strings )))
-
 (defun draw-level-paper (level)
+  (declare (type fixnum level))
   (case level 
     (1
-     (draw (make-paper *level-one-paper*)))
+     (draw (make-paper :strings *level-one-paper*)))
     (2
-     (draw (make-paper *level-two-paper*)))
+     (draw (make-paper :strings *level-two-paper*)))
     (3
-     (draw (make-paper *level-three-paper*)))
+     (draw (make-paper :strings *level-three-paper*)))
     (4
-     (draw (make-paper *level-four-paper*)))
+     (draw (make-paper :strings *level-four-paper*)))
     (5
-     (draw (make-paper *level-five-paper*)))
-    ))
+     (draw (make-paper :strings *level-five-paper*)))))
 
 (defun draw-dead-paper (level)
   (case level
     (4 
-     (draw (make-paper *end-of-level-four-paper*)))))
+     (draw (make-paper :strings *end-of-level-four-paper*)))))
 
 (defun draw-copyright-paper nil
-  (draw (make-paper *copyright-paper*)))
+  (draw (make-paper :strings *copyright-paper*)))
 
 (defun draw-no-more-arrows-paper nil
-  (draw (make-paper *hero-without-arrows-paper*)))
+  (draw (make-paper :strings *hero-without-arrows-paper*)))
 
 
 (defun draw-end-paper nil
-  (draw (make-paper *end-paper*)))
+  (draw (make-paper :strings *end-paper*)))
 
 
 (defun draw-end-paper nil
-  (draw (make-paper *end-paper*)))
+  (draw (make-paper :strings *end-paper*)))
 
