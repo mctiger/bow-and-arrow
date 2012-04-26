@@ -39,16 +39,15 @@
   :licence "MIT"
   :depends-on (#:asdf #:lispbuilder-sdl #:lispbuilder-sdl-image)
   :serial t
-  :components ((:file "tools")
-	       (:file "specials")
+  :components ((:file "specials-and-tools")
 	       (:file "base")
 	       (:file "paper")
 	       (:file "balloon")
-	       (:file "arrow")
 	       (:file "hero")
 	       (:file "butterfly")
 	       (:file "slime")
-	       (:file "main")))
+	       (:file "main")
+))
 
 
 
