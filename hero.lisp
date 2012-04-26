@@ -125,7 +125,7 @@
 	(tmp nil))
     (declare (type list arrows)  (type list tmp))
     (dolist (arrow arrows)
-      (unless (out-of-bounds-p arrow)
+      (unless (or (out-of-bounds-p arrow) (not (%alive-p arrow)))
 	(push arrow tmp)))
     (setf (%arrows hero) tmp))) 
 
@@ -133,5 +133,6 @@
   (let ((arrows (%arrows hero)))
     (declare (type list arrows))
     (dolist (arrow arrows)
-      (draw arrow)
-      (move* arrow))))
+      (when (%alive-p arrow)
+	(draw arrow)
+	(move* arrow)))))

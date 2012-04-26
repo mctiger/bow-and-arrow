@@ -46,6 +46,7 @@
 	       (:file "hero")
 	       (:file "butterfly")
 	       (:file "slime")
+	       (:file "bullseye")
 	       (:file "main")))
 
 

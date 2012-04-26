@@ -39,7 +39,7 @@
 
 ;; TODO : find a better name for the following constant
 (defparameter  *alist-level-arrows*
-    `((1 . 15) (2 . 15) (3 . 15) (4 . ,most-positive-fixnum)))
+    `((1 . 15) (2 . 15) (3 . 15) (4 . ,most-positive-fixnum) (5 . ,most-positive-fixnum)))
 
 (defvar *video-height*)
 (defvar *video-width*)
@@ -83,11 +83,11 @@
 (defparameter +bird-height+ 21)
 
 
-;; bulls-eye
-(def-image-path +path-image-bulls-eye+
+;; bullseye
+(def-image-path +path-image-bullseye+
     "bulls_eye.png")
-(defparameter +bulls-eye-width+ 17)
-(defparameter +bulls-eye-height+ 40)
+(defparameter +bullseye-width+ 17)
+(defparameter +bullseye-height+ 40)
 
 
 ;; butterfly
