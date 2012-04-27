@@ -30,7 +30,7 @@
   (:use :common-lisp)
   (:export :play :+images-directory+ :+version+))
 
-(defparameter bow-and-arrow:+version+ "1.4")
+(defparameter bow-and-arrow:+version+ "1.5")
 
 (asdf:defsystem :bow-and-arrow
   :description "a remake of W* 1995 game Bow & Arrow"

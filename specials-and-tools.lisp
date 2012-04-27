@@ -201,7 +201,7 @@
 
 (defparameter *copyright-paper* 
     `("Common Lisp - Bow and Arrow" 
-      "version 1.4"
+      "version 1.5"
       "" 
       "In search of" 
       "The GREATEST Archer"
