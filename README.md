@@ -40,5 +40,5 @@ Play with chosen dimensions :
 
 This package is theoretically portable. We just tested the package on
 sbcl/linux, ccl/linux, clisp/linux and cmucl/linux.
-We have implemented 4 levels. So, the next levels will come
+We have implemented 5 levels. So, the next levels will come
 soon.
