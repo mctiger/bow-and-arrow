@@ -156,7 +156,7 @@
 	  (t 
 	   (setf *video-width* 1000
 		 *video-height* 720)))
-    (let* ((first-level 5)
+    (let* ((first-level 1)
 	   my-hero
 	   balloons
 	   butterflies
