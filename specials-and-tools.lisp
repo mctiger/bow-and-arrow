@@ -39,7 +39,8 @@
 
 ;; TODO : find a better name for the following constant
 (defparameter  *alist-level-arrows*
-    `((1 . 15) (2 . 15) (3 . 15) (4 . ,most-positive-fixnum) (5 . 15)))
+  `((1 . 15) (2 . 15) (3 . 15) (4 . ,most-positive-fixnum) (5 . 15)))
+
 
 (defvar *video-height*)
 (defvar *video-width*)
