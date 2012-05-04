@@ -145,7 +145,7 @@
 
 (defun play (&key (fullscreen nil) width height)
   (declare (type boolean fullscreen))
-  (format t +license+)
+  (format t "~A~%" +license+)
   (force-output)
   (sdl:with-init (sdl:sdl-init-video)
     (cond (fullscreen 

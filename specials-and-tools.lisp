@@ -29,7 +29,7 @@
 
 (defparameter +license+
     ";;; Welcome to Bow & Arrow - A remake of W* 1995 game
-;;; Written by Kaïraba Cissé <ckairaba@gmail.com>~%")
+;;; Written by Kaïraba Cissé <ckairaba@gmail.com>")
 
 (defparameter +title+ "Bow & Arrow")
 

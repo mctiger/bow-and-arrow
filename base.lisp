@@ -39,31 +39,31 @@
 ;; %x
 (defmethod %x ((base base))
   (base-x base))
-(defmethod (setf %x) ((x fixnum) (base base))
+(defmethod (setf %x) (x (base base))
   (setf (base-x base) x))
 
 ;; %y
 (defmethod %y ((base base))
   (base-y base))
-(defmethod (setf %y) ((y fixnum) (base base))
+(defmethod (setf %y) (y (base base))
   (setf (base-y base) y))
 
 ;; %speed
 (defmethod %speed ((base base))
   (base-speed base))
-(defmethod (setf %speed) ((speed fixnum) (base base))
+(defmethod (setf %speed) (speed (base base))
   (setf (base-speed base) speed))
 
 ;; %width
 (defmethod %width ((base base))
   (base-width base))
-(defmethod (setf %width) ((width fixnum) (base base))
+(defmethod (setf %width) (width (base base))
   (setf (base-width base) width))
 
 ;; %height
 (defmethod %height ((base base))
   (base-height base))
-(defmethod (setf %height) ((height fixnum) (base base))
+(defmethod (setf %height) (height (base base))
   (setf (base-height base) height))
 
 ;; %alive-p

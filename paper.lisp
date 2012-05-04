@@ -39,7 +39,7 @@
 (defmethod %strings ((paper paper))
   (paper-strings paper))
 
-(defmethod (setf %strings) ((paper paper) (strings list))
+(defmethod (setf %strings) ((paper paper) strings)
   (setf (paper-strings paper) strings))
 
 
