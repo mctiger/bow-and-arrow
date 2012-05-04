@@ -38,15 +38,14 @@
 (defmethod move* ((arrow arrow))
   (incf (%x arrow) (%speed arrow)))
 
-;; methods
 (defmethod colliding-p ((base1 arrow)  base2)
   (let ((right1 (+ (%x base1) (%width base1)))
 	(right2 (+ (%x base2) (%width base2)))
-	(bottom1 (+ (%y base1) (- (%height base1) 2)))
+	(bottom1 (+ (%y base1) (- (%height base1) 2))) ;; ...
 	(bottom2 (+ (%y base2) (%height base2)))
 	(left1 (%x base1))
 	(left2 (%x base2))
-	(top1 (+ (%y base1) 2))
+	(top1 (+ (%y base1) 2)) ;; ...
 	(top2 (%y base2)))
     (declare (type fixnum right1 right2 bottom1 bottom2 left1 left2 top1 top2))
     (the boolean (not (or (< right1 left2)
