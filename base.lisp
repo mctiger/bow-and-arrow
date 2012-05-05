@@ -31,7 +31,7 @@
 (defstruct base
   (x 0 :type fixnum)
   (y 0 :type fixnum)
-  (speed 1 :type fixnum)
+  (speed 2 :type fixnum)
   (width 0 :type fixnum)
   (height 0 :type fixnum)
   (alive-p t :type boolean))

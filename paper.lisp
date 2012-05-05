@@ -33,7 +33,8 @@
 			    (y (- (round (/ *video-height* 3)) (/  +paper-height+ 2)))
 			    (width  +paper-width+)
 			    (height  +paper-height+)))
-  strings nil :type list)
+  (strings nil :type list)
+  )
 
 ;; %strings
 (defmethod %strings ((paper paper))
