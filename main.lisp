@@ -33,6 +33,7 @@
 	  *video-height* (aref dimensions 1))))
 
 
+
 (defun level-1-or-2 (my-hero balloons)
   ;; remove arrows shoot by hero if they are out of bounds
   (remove-arrows-if-out-of-bounds my-hero)
@@ -89,6 +90,8 @@
    (every #'(lambda (butterfly) (not (%bubled-p butterfly)))
 	  butterflies)))
 
+
+
 (defun level-4 (my-hero slimes)
   ;; remove dead or negative bounds slimes
   (setf slimes 
@@ -113,11 +116,13 @@
     (when (and (colliding-p slime my-hero) (slime-alive-p slime))
       (setf (%alive-p my-hero) nil)) 
     (draw slime)
-    (move* slime)) 
+    (move* slime))
 
   (values 
    (%alive-p my-hero)
    slimes))
+
+
 
 (defun level-5 (my-hero bullseye)
   ;; remove arrows shoot by hero if they are out of bounds
@@ -131,8 +136,7 @@
 	(push (make-arrow :x (- *video-width* 90) :y (%y arrow)) (%arrows bullseye))
 	(setf (%alive-p arrow) nil)
 	(when (reached-p bullseye arrow)
-	  (setf (%alive-p bullseye) nil))
-	)))
+	  (setf (%alive-p bullseye) nil)))))
   (draw bullseye)
   (move* bullseye)
 
@@ -141,6 +145,7 @@
    (and (null (%arrows my-hero)) (zerop (%nb-arrows my-hero)))
    ;; is the target reached ?
    (not (%alive-p bullseye))))
+
 
 
 (defun play (&key (fullscreen nil) width height)
@@ -164,7 +169,7 @@
 	   bullseye
 	   (state :copyright)
 	   (level first-level))
-      (declare (type list balloons butterflies)
+      (declare (type list balloons butterflies slimes)
 	       (type symbol state)
 	       (type fixnum level first-level))
       (sdl:window   *video-width* *video-height*  :title-caption +title+ :icon-caption +title+)
@@ -195,7 +200,6 @@
 	(:idle ()	       
 	       (unless (eq state :paused)
 		 ;; initialize a green background
-
 		 (sdl:clear-display sdl:*green*)
 		 ;; set caption
 		 (unless (eq state :play)
