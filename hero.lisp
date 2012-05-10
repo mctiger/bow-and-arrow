@@ -121,7 +121,7 @@
 	 (push (make-arrow :x (+ (%x hero) (%width hero)) 
 			   :y (+ (%y hero) +arrow-position-regarding-hero+)) 
 	       (%arrows hero))
-	 (decf (%nb-arrows hero))
+	   (decf (%nb-arrows hero))
 	 (setf (%width hero) +hero-without-arrow-width+)
 	 (setf (%height hero) +hero-without-arrow-height+)
 	 (setf (%state hero) :without-arrow))))))

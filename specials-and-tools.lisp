@@ -37,10 +37,10 @@
 
 (defparameter *speed-balloon* 2)
 
-;; TODO : find a better name for the following constant
-(defparameter  *alist-level-arrows*
-  `((1 . 15) (2 . 15) (3 . 15) (4 . ,most-positive-fixnum) (5 . 15)))
+(defparameter *infinity* most-positive-fixnum)
 
+(defparameter  *arrows-by-level*
+  `((1 . 15) (2 . 15) (3 . 15) (4 . 50) (5 . 15) (6 . 50)))
 
 (defvar *video-height*)
 (defvar *video-width*)
@@ -52,20 +52,20 @@
   `(defparameter ,variable 
        (merge-pathnames ,name +images-directory+)))
 
+
 ;; arrow
 (def-image-path +path-image-arrow+ "arrow.png")
+
 (defparameter +arrow-width+ 51)
+
 (defparameter +arrow-height+ 5)
 
 
 ;; balloon
 (def-image-path +path-image-balloon+ "balloon.png")
-
 (def-image-path +path-image-balloon-dead+ "balloon_dead.png")
-
 (def-image-path +path-image-balloon-yellow+
     "balloon_yellow.png")
-
 (def-image-path +path-image-balloon-yellow-dead+
     "balloon_yellow_dead.png")
 
@@ -74,7 +74,6 @@
 
 (defparameter +balloon-dead-width+ 10)
 (defparameter +balloon-dead-width+ 45)
-
 
 
 ;; bird
@@ -106,13 +105,11 @@
 ;; fire
 (def-image-path +path-image-fire1+
     "fire1.png")
-(defparameter +fire1-width+ 49)
-(defparameter +fire1-height+ 20)
-
 (def-image-path +path-image-fire2+
     "fire2.png")
-(defparameter +fire2-width+ 49)
-(defparameter +fire2-height+ 20)
+(defparameter +fire-width+ 49)
+(defparameter +fire-height+ 20)
+
 
 (def-image-path +path-image-fire-dead+
     "fire_dead.png")
@@ -202,7 +199,7 @@
 
 (defparameter *copyright-paper* 
     `("Common Lisp - Bow and Arrow" 
-      "version 1.5"
+      ,(format nil "version ~A" +version+)
       "" 
       "In search of" 
       "The GREATEST Archer"
@@ -260,7 +257,6 @@
       ""
       "The End"))
 
-
 (defparameter *level-five-paper*
     '("BULLS Eye"
       ""
@@ -269,6 +265,21 @@
       "The tests begin !"
       "You Need a Bull's Eye to Continue ..."))
 
+(defparameter *level-six-paper*
+  '("FIREBALLS"
+    ""
+    "Nice Shot!"
+    "Suddenly you hear an earth shattering"
+    "rapport. The hillside nearest you"
+    "explodes into thoudans of flaming lava"
+    "rocks, many of which are heading"
+    "straight for you. No time to seek"
+    "shelter..."))
+
+(defparameter *end-of-level-six-paper*
+  '("OUCH"
+    ""
+    "The End"))
 
 (defparameter *hero-without-arrows-paper*
     '("What is an archer without his arrows ?"
@@ -289,5 +300,4 @@
 (defun random* (i j)
   (declare (type fixnum i j))
   (the fixnum (+ i (random (1+ (- j i))))))
-
 

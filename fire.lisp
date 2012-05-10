@@ -25,30 +25,34 @@
 ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-(defpackage :bow-and-arrow 
-  (:nicknames :bow)
-  (:use :common-lisp)
-  (:export :play :+images-directory+ :+version+))
+(in-package :bow-and-arrow)
 
-(defparameter bow-and-arrow:+version+ "1.6")
+;;; Fire
+(defstruct (fire (:include slime
+			    (y (random (- *video-height* +fire-height+)))
+			    (width +fire-width+)
+			    (height +fire-height+)
+			    (speed 5)))
+  (state :fire1 :type symbol))
 
-(asdf:defsystem :bow-and-arrow
-  :description "a remake of W* 1995 game Bow & Arrow"
-  :version bow-and-arrow:+version+
-  :author "Kaïraba Cissé <ckairaba@gmail.com>"
-  :licence "MIT"
-  :depends-on (#:asdf #:lispbuilder-sdl #:lispbuilder-sdl-image)
-  :serial t
-  :components ((:file "specials-and-tools")
-	       (:file "base")
-	       (:file "paper")
-	       (:file "balloon")
-	       (:file "hero")
-	       (:file "butterfly")
-	       (:file "slime")
-	       (:file "bullseye")
-	       (:file "fire")
-	       (:file "main")))
+(defmethod draw ((fire fire))
+  (if (%alive-p fire)
+      (if (eq (fire-state fire) :fire1)
+	  (progn
+	    (draw-image fire +path-image-fire1+)
+	    (setf (fire-state fire) :fire2))
+	  (progn
+	    (draw-image fire +path-image-fire2+)
+	    (setf (fire-state fire) :fire1)))
+      (draw-image fire +path-image-fire-dead+)))
 
-
+(defun make-fires-random-list (n)
+  (declare (type fixnum n))
+  (let ((fires nil)
+	(x *video-width*))
+    (declare (type list fires))
+    (loop repeat n do
+	 (push (make-fire :x x) fires)
+	 (incf x (* 2 +fire-width+)))
+    (the list fires)))
 

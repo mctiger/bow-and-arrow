@@ -120,28 +120,30 @@
 
 ;; functions
 (defun remove-if-fn-and-out-of-bounds (items fn)
-  (remove-if #'(lambda (item) 
-		 (and (funcall fn item)
-		      (out-of-bounds-p item))) 
-	     items))
+  (let (tmp)
+    (declare (type list tmp))
+    (dolist (item items tmp)
+      (when (not (and (funcall fn item) (out-of-bounds-p item)))
+	(push item tmp)))))
 
 (defun remove-if-fn-or-out-of-bounds (items fn)
-  (remove-if #'(lambda (item) 
-		 (or (funcall fn item)
-		      (out-of-bounds-p item))) 
-	     items))
-
+  (let (tmp)
+    (declare (type list tmp))
+    (dolist (item items tmp)
+      (when (not (or (funcall fn item) (out-of-bounds-p item)))
+	(push item tmp)))))
 
 (defun remove-if-fn-and-negative-bounds (items fn)
-  (remove-if #'(lambda (item) 
-		 (and (funcall fn item)
-		      (negative-bounds-p item))) 
-	     items))
-
+  (let (tmp)
+    (declare (type list tmp))
+    (dolist (item items tmp)
+      (when (not (and (funcall fn item) (negative-bounds-p item)))
+	(push item tmp)))))
 
 (defun remove-if-fn-or-negative-bounds (items fn)
-  (remove-if #'(lambda (item) 
-		 (or (funcall fn item)
-		      (negative-bounds-p item))) 
-	     items))
+  (let (tmp)
+    (declare (type list tmp))
+    (dolist (item items tmp)
+      (when (not (or (funcall fn item) (negative-bounds-p item)))
+	(push item tmp)))))
 

@@ -37,5 +37,5 @@ Play with chosen dimensions :
 
 <img src="https://github.com/downloads/ckairaba/bow-and-arrow/screenshot.png" height="250" width="450" align="center" />
 
-We have implemented 5 levels. So, the next levels will come
+We have implemented 6 levels. So, the next levels will come
 soon.

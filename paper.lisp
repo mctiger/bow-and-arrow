@@ -69,12 +69,16 @@
     (4
      (draw (make-paper :strings *level-four-paper*)))
     (5
-     (draw (make-paper :strings *level-five-paper*)))))
+     (draw (make-paper :strings *level-five-paper*)))
+    (6
+     (draw (make-paper :strings *level-six-paper*)))))
 
 (defun draw-dead-paper (level)
   (case level
     (4 
-     (draw (make-paper :strings *end-of-level-four-paper*)))))
+     (draw (make-paper :strings *end-of-level-four-paper*)))
+    (6
+     (draw (make-paper :strings *end-of-level-six-paper*)))))
 
 (defun draw-copyright-paper nil
   (draw (make-paper :strings *copyright-paper*)))
