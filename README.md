@@ -35,7 +35,7 @@ Play with chosen dimensions :
 * 'space' key to pause the game
 * 'q' key to quit the game
 
-<img src="https://github.com/downloads/ckairaba/bow-and-arrow/screenshot.png" height="250" width="450" align="center" />
+<img src="https://raw.github.com/ckairaba/bow-and-arrow/master/images/screenshot.png" height="250" width="450" align="center" />
 
 We have implemented 6 levels. So, the next levels will come
 soon.
